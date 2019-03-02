@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Pasienku</string>
+    <string name="hello">Hello World</string>
+    <string name="hello_dunia">Hello Dunia!</string>
+
+    <string-array name="payment_methods">
+        <item>BPJS</item>
+        <item>Umum</item>
+        <item>Corporate</item>
+        <item>Asuransi</item>
+    </string-array>
+</resources>
