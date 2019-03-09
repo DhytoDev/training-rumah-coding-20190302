@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <EditText
         android:id="@+id/edit_text_first_name"
@@ -39,6 +39,8 @@
         android:id="@+id/edit_text_date_of_birth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
         android:hint="Tanggal Lahir"
         android:inputType="date" />
 
@@ -54,11 +56,13 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/radio_man"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pria" />
 
         <RadioButton
+            android:id="@+id/radio_woman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wanita" />
@@ -75,8 +79,7 @@
         android:id="@+id/spinner_payment_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/payment_methods"
-        />
+        android:entries="@array/payment_methods" />
 
     <TextView
         android:layout_width="match_parent"
@@ -99,8 +102,8 @@
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:text="Simpan"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"/>
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
