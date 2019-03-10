@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onClick(View view) {
                 addPatient();
+                finish();
             }
         });
 

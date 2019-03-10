@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_add_patient"
+        android:icon="@drawable/ic_action_add_circle_outline"
+        android:title="Add Patient"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_delete_all"
+        android:icon="@drawable/ic_action_delete"
+        android:title="Delete All"
+        app:showAsAction="ifRoom" />
+
+
+</menu>
