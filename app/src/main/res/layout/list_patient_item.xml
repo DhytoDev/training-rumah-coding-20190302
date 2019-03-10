@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/text_view_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
@@ -21,6 +22,7 @@
             tools:text="Ahmad Abdul" />
 
         <TextView
+            android:id="@+id/text_view_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -35,6 +37,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/text_view_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
@@ -43,6 +46,7 @@
             tools:text="BPJS" />
 
         <TextView
+            android:id="@+id/text_view_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
