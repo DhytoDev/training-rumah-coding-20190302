@@ -1,8 +1,10 @@
 package id.ac.unhas.rs.pasienku.activity;
 
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -55,7 +57,23 @@ public class PatientListActivity extends AppCompatActivity {
                     MainActivity.class);
             startActivity(intent);
         } else if(id == R.id.menu_delete_all) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Hapus Semua Data")
+                    .setMessage("Anda yakin ingin menghapus ?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteAllPatients();
+                        }
+                    })
+                    .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
+                        }
+                    })
+                    .show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -71,5 +89,16 @@ public class PatientListActivity extends AppCompatActivity {
         patientListView.setAdapter(adapter);
 
         databaseManager.close();
+    }
+
+    private void deleteAllPatients() {
+        DatabaseManager databaseManager = new DatabaseManager(this);
+        databaseManager.open();
+
+        databaseManager.deleteAllPatients();
+
+        databaseManager.close();
+        patients.clear();
+        adapter.notifyDataSetChanged();
     }
 }

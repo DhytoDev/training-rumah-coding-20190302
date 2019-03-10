@@ -68,4 +68,15 @@ public class DatabaseManager {
         return patients;
     }
 
+    public long deleteAllPatients() {
+        return db.delete("table_patient", null, null);
+    }
+
+    public long deletePatientById(long id) {
+        return db.delete("table_patient", "id=?", new String[]{Long.toString(id)});
+    }
+
+
+
+
 }

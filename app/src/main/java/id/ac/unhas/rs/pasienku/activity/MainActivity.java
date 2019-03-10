@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onClick(View view) {
                 addPatient();
-                finish();
             }
         });
 
@@ -129,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 Toast.makeText(this, "Data gagal disimpan", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Data berhasil disimpan dengan id " + id, Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
 
