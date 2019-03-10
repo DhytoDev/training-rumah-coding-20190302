@@ -128,7 +128,30 @@ public class PatientListActivity extends AppCompatActivity {
 
                 break;
             case R.id.delete_menu:
+                new AlertDialog.Builder(this)
+                        .setTitle("Hapus Data")
+                        .setMessage("Anda yakin ingin menghapus data ? ")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseManager databaseManager = new DatabaseManager(PatientListActivity.this);
+                                databaseManager.open();
+                                databaseManager.deletePatientById(patient.getId());
+                                databaseManager.close();;
 
+                                patients.remove(position);
+
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
                 break;
         }
 
