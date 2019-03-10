@@ -14,7 +14,7 @@ import id.ac.unhas.rs.pasienku.R;
 
 public class PatientListAdapter extends ArrayAdapter<Patient> {
 
-    public PatientListAdapter(Context context, int resource, List<Patient> patients) {
+    public PatientListAdapter(Context context, List<Patient> patients) {
         super(context, R.layout.list_patient_item, patients);
     }
 
