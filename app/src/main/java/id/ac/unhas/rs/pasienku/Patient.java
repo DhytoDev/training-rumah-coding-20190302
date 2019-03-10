@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Patient {
+    private long id;
     private String firstName;
     private String lastName;
     private String gender;
@@ -40,6 +41,14 @@ public class Patient {
 
         return years;
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setFirstName(String firstName) {
