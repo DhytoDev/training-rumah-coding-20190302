@@ -87,7 +87,7 @@ public class DatabaseManager {
     }
 
     public List<Patient> searchPatientByName(String keyword) {
-        String sql = "SELECT * FROM tabel_patient WHERE first_name LIKE ? OR last_name LIKE ?";
+        String sql = "SELECT * FROM table_patient WHERE first_name LIKE ? OR last_name LIKE ?";
         Cursor cursor = db.rawQuery(sql, new String[]{
                 "%" + keyword + "%", "%" + keyword + "%"
         });

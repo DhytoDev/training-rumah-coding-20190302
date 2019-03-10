@@ -34,6 +34,27 @@ public class PatientListActivity extends AppCompatActivity {
         patientListView = findViewById(R.id.list_view_patient);
         searchView = findViewById(R.id.search_view);
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String keyword) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String keyword) {
+                patients.clear();
+
+                DatabaseManager databaseManager = new DatabaseManager(PatientListActivity.this);
+                databaseManager.open();
+
+                patients.addAll(databaseManager.searchPatientByName(keyword));
+                adapter.notifyDataSetChanged();
+
+                databaseManager.close();
+                return false;
+            }
+        });
+
     }
 
     @Override
