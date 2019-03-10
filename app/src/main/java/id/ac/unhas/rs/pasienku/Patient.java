@@ -1,12 +1,15 @@
 package id.ac.unhas.rs.pasienku;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Patient {
+public class Patient implements Parcelable {
     private long id;
     private String firstName;
     private String lastName;
@@ -16,6 +19,51 @@ public class Patient {
     private String dateOfBirth;
     private String paymentMethod;
     private String assurance;
+
+    public Patient() {
+    }
+
+    protected Patient(Parcel in) {
+        id = in.readLong();
+        firstName = in.readString();
+        lastName = in.readString();
+        gender = in.readString();
+        email = in.readString();
+        phoneNumber = in.readString();
+        dateOfBirth = in.readString();
+        paymentMethod = in.readString();
+        assurance = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(gender);
+        dest.writeString(email);
+        dest.writeString(phoneNumber);
+        dest.writeString(dateOfBirth);
+        dest.writeString(paymentMethod);
+        dest.writeString(assurance);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Patient> CREATOR = new Creator<Patient>() {
+        @Override
+        public Patient createFromParcel(Parcel in) {
+            return new Patient(in);
+        }
+
+        @Override
+        public Patient[] newArray(int size) {
+            return new Patient[size];
+        }
+    };
 
     public String getFullName() {
         return firstName + " " + lastName;

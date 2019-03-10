@@ -1,14 +1,16 @@
 package id.ac.unhas.rs.pasienku.activity;
 
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
@@ -33,6 +35,8 @@ public class PatientListActivity extends AppCompatActivity {
 
         patientListView = findViewById(R.id.list_view_patient);
         searchView = findViewById(R.id.search_view);
+
+        registerForContextMenu(patientListView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -73,11 +77,11 @@ public class PatientListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.menu_add_patient) {
+        if (id == R.id.menu_add_patient) {
             Intent intent = new Intent(PatientListActivity.this,
                     MainActivity.class);
             startActivity(intent);
-        } else if(id == R.id.menu_delete_all) {
+        } else if (id == R.id.menu_delete_all) {
             new AlertDialog.Builder(this)
                     .setTitle("Hapus Semua Data")
                     .setMessage("Anda yakin ingin menghapus ?")
@@ -98,6 +102,38 @@ public class PatientListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        final int position = menuInfo.position;
+
+        final Patient patient = patients.get(position);
+
+        switch (id) {
+            case R.id.update_menu:
+                Intent intent = new Intent(PatientListActivity.this, MainActivity.class);
+                intent.putExtra("patient_data", patient);
+                startActivity(intent);
+
+                break;
+            case R.id.delete_menu:
+
+                break;
+        }
+
+
+        return super.onContextItemSelected(item);
     }
 
     private void getPatientList() {

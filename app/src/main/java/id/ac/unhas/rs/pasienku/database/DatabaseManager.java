@@ -64,6 +64,7 @@ public class DatabaseManager {
 
         while (!cursor.isAfterLast()) {
             Patient patient = new Patient();
+            patient.setId(cursor.getLong(cursor.getColumnIndexOrThrow("id")));
             patient.setFirstName(cursor.getString(cursor.getColumnIndexOrThrow("first_name")));
             patient.setLastName(cursor.getString(cursor.getColumnIndexOrThrow("last_name")));
             patient.setGender(cursor.getString(cursor.getColumnIndexOrThrow("gender")));
@@ -103,7 +104,7 @@ public class DatabaseManager {
         ContentValues cv = setContentValues(patient);
 
         return db.update("table_patient", cv,
-                "id = ?", new String[]{Long.toString(patient.getId())});
+                "id=?", new String[]{Long.toString(patient.getId())});
     }
 
 }

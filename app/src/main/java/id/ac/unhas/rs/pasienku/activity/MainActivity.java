@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -48,6 +49,43 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         spinnerPayment = findViewById(R.id.spinner_payment_method);
         checkBoxBPJS = findViewById(R.id.checkbox_bpjs);
         checkBoxInsurance = findViewById(R.id.checkbox_insurance);
+
+        Patient patient = getIntent().getParcelableExtra("patient_data");
+
+        if (patient != null) {
+            editTextFirstName.setText(patient.getFirstName());
+            editTextLastName.setText(patient.getLastName());
+            editTextEmail.setText(patient.getEmail());
+            editTextPhone.setText(patient.getPhoneNumber());
+            editTextDateOfBirth.setText(patient.getDateOfBirth());
+
+            String gender = patient.getGender();
+
+            if (gender.equals("Pria")) {
+                radioGroupGender.check(R.id.radio_man);
+            } else if (gender.equals("Wanita")) {
+                radioGroupGender.check(R.id.radio_woman);
+            }
+
+            ArrayAdapter adapter = (ArrayAdapter) spinnerPayment.getAdapter();
+            int position = adapter.getPosition(patient.getPaymentMethod());
+            spinnerPayment.setSelection(position);
+
+            String assurance = patient.getAssurance();
+
+            if (assurance.contains("BPJS")) {
+                checkBoxBPJS.setChecked(true);
+            } else {
+                checkBoxBPJS.setChecked(false);
+            }
+
+
+            if (assurance.contains("Asuransi")) {
+                checkBoxInsurance.setChecked(true);
+            } else {
+                checkBoxInsurance.setChecked(false);
+            }
+        }
 
         buttonSave = findViewById(R.id.button_save);
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -122,13 +160,22 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         if (!isValid) {
             validateForm();
         } else {
-            long id = databaseManager.addPatient(patient);
+            Patient patientIntent = getIntent().getParcelableExtra("patient_data");
 
-            if (id == -1) {
-                Toast.makeText(this, "Data gagal disimpan", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Data berhasil disimpan dengan id " + id, Toast.LENGTH_SHORT).show();
+            if (patientIntent != null) {
+                patient.setId(patientIntent.getId());
+                long id = databaseManager.updatePatient(patient);
+                Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
                 finish();
+            } else {
+                long id = databaseManager.addPatient(patient);
+
+                if (id == -1) {
+                    Toast.makeText(this, "Data gagal disimpan", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Data berhasil disimpan dengan id " + id, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         }
 
